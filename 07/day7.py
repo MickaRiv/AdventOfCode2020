@@ -12,7 +12,7 @@ for d in data:
             contentSplitted = content.split()
             dataDic[dSplitted[0]][contentSplitted[1]+" "+contentSplitted[2]] = int(contentSplitted[0])
 
-print(dataDic)
+#print(dataDic)
 searchList = ["shiny gold"]
 nOld = 0
 n = 1
@@ -22,7 +22,7 @@ while nOld < n:
         if name not in searchList and np.any([key in searchList for key in content.keys()]):
             searchList.append(name)
     n = len(searchList)
-    print(n-1)
+print(n-1)
     
 def contentNumber(name):
     if not dataDic[name]:
