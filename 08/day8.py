@@ -42,12 +42,19 @@ baseRun = runCode()
 print(baseRun[:3])
 print(count)
 
-def solve(quickRestart=False,useHistory=False):
-    changeCmd = 0
+nopOrJmpIndsinHisto = [i for i,p in enumerate(baseRun[3]) if data[p][0] in ["jmp","nop"]]
+
+def solve(useHistory=False,quickRestart=False,JmpNopFilter=False):
+    global nopOrJmpIndsinHisto
+    changeInd = 0
     deadHisto = []
     success = False
     while not success:
-        changeCmd += 1
+        changeInd += 1
+        if JmpNopFilter:
+            changeCmd = nopOrJmpIndsinHisto[changeInd]+1
+        else:
+            changeCmd = changeInd
         kwargs = {"changeCmd":changeCmd}
         if useHistory:
             kwargs["deadHisto"] = deadHisto
@@ -59,7 +66,10 @@ def solve(quickRestart=False,useHistory=False):
             deadHisto = np.unique(np.concatenate((deadHisto,pHisto)))
     return pos, acc
 
-for inputs in [[False,False],[True,False],[False,True],[True,True]]:
+for inp in range(8):
+    inputs = [bool(np.mod(inp//4,2)),bool(np.mod(inp//2,2)),bool(np.mod(inp,2))]
     count = 0
-    print(solve(*inputs))
-    print(count)
+    print('--------------------------')
+    print("Result:",solve(*inputs))
+    print("Acceleration strategies activated:",inputs)
+    print("Number of executed commands:", count)
