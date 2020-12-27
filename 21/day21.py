@@ -17,6 +17,7 @@ done = []
 for _ in range(len(allergenDic)):
     for al,alList in allergenDic.items():
         if (al not in done) and len(alList) == 1:
+            done.append(al)
             for a,l in allergenDic.items():
                 if a != al:
                     try:
