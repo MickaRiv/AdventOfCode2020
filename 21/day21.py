@@ -13,7 +13,6 @@ for ing, al in zip(ingredients,allergens):
 allAllergIngredients = np.unique([i for ing in allergenDic.values() for i in ing])
 print(np.sum([np.sum([(i not in allAllergIngredients) for i in ing]) for ing in ingredients]))
 
-done = []
 for _ in range(len(allergenDic)):
     for al,alList in allergenDic.items():
         if (al not in done) and len(alList) == 1:
